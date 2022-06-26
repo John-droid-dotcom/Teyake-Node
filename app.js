@@ -12,4 +12,4 @@ app.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-app.listen(3030);
+app.listen(3000);
