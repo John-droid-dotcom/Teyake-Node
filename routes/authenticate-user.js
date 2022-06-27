@@ -3,49 +3,57 @@ const { body } = require("express-validator");
 
 /* pages route */
 const {
-		dashboard,
-		homePage,
-		register,
-		registerPage,
-		login,
-		loginPage,
-		forgotPassword,
-		sendResetPassLink,
-		resetPasswordPage,
-		resetPassword
-		} = require("../controllers/authController");
+  dashboard,
+  homePage,
+  register,
+  registerPage,
+  login,
+  loginPage,
+  forgotPassword,
+  sendResetPassLink,
+  resetPasswordPage,
+  resetPassword,
+} = require("../controllers/authController");
 
+const { isLoggedin, isNotLoggedin } = require("../lib/check_authentication");
+const validator = require("../lib/validation_rules");
 
-const {isLoggedin, isNotLoggedin} = require('../lib/check_authentication');
-const validator = require('../lib/validation_rules');
+const { isLoggedin, isNotLoggedin } = require("../lib/check_authentication");
+const validator = require("../lib/validation_rules");
 
-router.get('/', homePage);
-router.post('/', homePage);
+router.get("/", homePage);
+router.post("/", homePage);
 
-router.get('/dashboard', isLoggedin, dashboard);
-router.post('/dashboard', isLoggedin, dashboard);
+router.get("/dashboard", isLoggedin, dashboard);
+router.post("/dashboard", isLoggedin, dashboard);
 
 router.get("/auth/login", isNotLoggedin, loginPage);
 router.post("/auth/login", isNotLoggedin, validator.validationRules[0], login);
 
 router.get("/auth/signup", isNotLoggedin, registerPage);
-router.post("/auth/signup", isNotLoggedin, validator.validationRules[1], register);
-
-router.get('/logout', 
-		(req, res, next) => {
-				req.session.destroy(
-						(err) => {
-							next(err);
-							}
-					);
-		res.redirect('/auth/login');
-	}
+router.post(
+  "/auth/signup",
+  isNotLoggedin,
+  validator.validationRules[1],
+  register
 );
+
+router.get("/logout", (req, res, next) => {
+  req.session.destroy((err) => {
+    next(err);
+  });
+  res.redirect("/auth/login");
+});
 
 router.get("/auth/passReset_Request", isNotLoggedin, forgotPassword);
 router.post("/auth/passReset_Request", isNotLoggedin, sendResetPassLink);
 
 router.get("/reset-password", isNotLoggedin, resetPasswordPage);
-router.post("/reset-password", isNotLoggedin, validator.validationRules[3], resetPassword);
+router.post(
+  "/reset-password",
+  isNotLoggedin,
+  validator.validationRules[3],
+  resetPassword
+);
 
 module.exports = router;
