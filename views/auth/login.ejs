@@ -28,7 +28,7 @@
 						</div>
 						
 						<% 
-							if(typeof error !== 'undefined')
+							if(typeof error !== 'undefined' && error != "")
 							{ 
 						%>
 							<div class="err-msg">
@@ -43,7 +43,7 @@
 								 <input type="checkbox" name="checkbox"> Remember Me
 						    </label>
 							
-							<a href="../pages/passReset_Request" class="float-right"	style = "color:#17202A"> 
+							<a href="./passReset_Request" class="float-right"	style = "color:#17202A"> 
 										Forgot Password? 
 							</a>
 						</div>
