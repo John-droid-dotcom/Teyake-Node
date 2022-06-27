@@ -8,8 +8,14 @@ const sendMail = require('../lib/sendEmail');
 
 const dbConn = require("../config/db_Connection")
 
-// Home Page
-exports.homePage = (req, res, next) => {
+//Home Page
+exports.homePage = (req, res, next) =>{
+	res.render("public/index");
+}
+
+
+// Dasbboard Page
+exports.dashboard = (req, res, next) => {
 	var query1;
 	if (req.method == 'GET')
 	{
@@ -48,7 +54,7 @@ exports.homePage = (req, res, next) => {
 			console.log (error);
 			throw error;
 		}
-	res.render('home', {data : result, title:'Homepage'});
+	res.render('home', {data : result, title:'Dashboard'});
 	});
 }
 
@@ -141,7 +147,7 @@ exports.login = (req, res, next) => {
 					req.session.userID = row[0].id;
 					req.session.email = row[0].email;
 					req.session.level = row[0].level;
-					return res.redirect('/');
+					return res.redirect('/dashboard');
 				}
 
 				res.render('auth/login', {error: 'Invalid email address or password.'});
