@@ -1,13 +1,4 @@
-let allTeachers = [];
 let currentTeacher;
-if (!!localStorage.getItem("teachers")) {
-  allTeachers = JSON.parse(localStorage.getItem("teachers"));
-  currentTeacher = JSON.parse(localStorage.getItem("current"));
-}
-
-const teacher = allTeachers.find((teacher) => teacher.id == currentTeacher);
-
-const img = document.getElementById("profileDisplay");
 
 const fullName = document.getElementById("name");
 const username = document.getElementById("username");
@@ -19,14 +10,7 @@ const save = document.getElementById("save-edit-btn");
 const changepassbtn = document.getElementById("changepass-btn");
 const passContainer = document.querySelector(".password-changer");
 
-// fullName.value = teacher.name;
-// username.value = teacher.username;
-// phoneNo.value = teacher.phone;
-// email.value = teacher.email;
-// instit.value = teacher.institution;
-
 const erorrLabel = document.getElementById("errorMsg");
-console.log(teacher);
 
 save.addEventListener("click", () => {
   const phonePattern = new RegExp(
@@ -110,42 +94,35 @@ function usernameTaken(uname) {
   return false;
 }
 
-changepassbtn.addEventListener("click", () => {
-  passContainer.classList.toggle("hidden");
-});
+// changepassbtn.addEventListener("click", () => {
+//   passContainer.classList.toggle("hidden");
+// });
 
-img.addEventListener("click", () => {
-  document.querySelector("#profileImage").click();
-});
-
-function triggerClick() {
-  document.querySelector("#profileImage").click();
-}
-
-function displayImage(e) {
-  if (e.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      document
-        .querySelector("#profileDisplay")
-        .setAttribute("src", e.target.result);
-    };
-    reader.readAsDataURL(e.files[0]);
-  }
-}
+// document.getElementById("back-btn").addEventListener("click", () => {
+//   window.open("./dashboard.php", "_parent");
+// });
 
 document.getElementById("save-pass").addEventListener("click", () => {
   const pass = document.getElementById("prev-password-input");
   const newpass = document.getElementById("password-input");
   const comfirmPass = document.getElementById("password-input");
   const error = document.getElementById("PasserrorMsg");
-  console.log(teacher.password);
-  if (pass.value != teacher.password) {
-    error.innerText = "incorrect current password.";
-    return;
-  }
-
+  let passwordVerified;
+  fetch("/teyake/public/update-password.php", {
+    method: "post",
+    body: JSON.stringify({
+      userID: userID,
+      verifyPass: true,
+      pass: pass.value,
+    }),
+  })
+    .then((r) => r.json())
+    .then((response) => {
+      if (!response) {
+        error.innerText = "Invalid password";
+        return;
+      }
+    });
   if (newpass.value.length < 6) {
     error.innerText =
       "Invalid password minimum of 6 characters required for valid password.";
@@ -161,12 +138,126 @@ document.getElementById("save-pass").addEventListener("click", () => {
     error.innerText = "Password Does Not Match.";
     return;
   }
-  error.innerText = "changed successfully";
-  teacher.password = newpass.value;
-  error.style.color = "green";
-  setTimeout(() => {
-    passContainer.classList.toggle("hidden");
-  }, 2000);
 
-  localStorage.setItem("teachers", JSON.stringify(allTeachers));
+  fetch("/teyake/public/update-password.php", {
+    method: "post",
+    body: JSON.stringify({
+      userID: userID,
+      pass: comfirmPass.value,
+      updatePass: true,
+    }),
+  });
+  error.innerText = "";
+});
+
+let showingCourseOverlay = false;
+document.getElementById("add-new-course").addEventListener("click", () => {
+  showingCourseOverlay = true;
+  document.querySelector(".add-course-window").classList.remove("hidden");
+  document.querySelector("html").classList.add("no-overflow");
+});
+document.querySelector(".course-overlay").addEventListener("click", () => {
+  document.querySelector(".add-course-window").classList.add("hidden");
+  document.querySelector("html").classList.remove("no-overflow");
+});
+window.addEventListener("keydown", (evt) => {
+  if (evt.key == "Escape" && showingCourseOverlay) {
+    document.querySelector(".add-course-window").classList.add("hidden");
+    document.querySelector("html").classList.remove("no-overflow");
+  }
+});
+
+let showingDeptOverlay = false;
+document.getElementById("add-new-dep").addEventListener("click", () => {
+  showingDeptOverlay = true;
+  document.querySelector(".add-dep-window").classList.remove("hidden");
+  document.querySelector("html").classList.add("no-overflow");
+});
+document.querySelector(".dep-overlay").addEventListener("click", () => {
+  document.querySelector(".add-dep-window").classList.add("hidden");
+  document.querySelector("html").classList.remove("no-overflow");
+});
+window.addEventListener("keydown", (evt) => {
+  if (evt.key == "Escape" && showingDeptOverlay) {
+    document.querySelector(".add-dep-window").classList.add("hidden");
+    document.querySelector("html").classList.remove("no-overflow");
+  }
+});
+
+let showingInstOverlay = false;
+document.getElementById("add-new-inst").addEventListener("click", () => {
+  showingInstOverlay = true;
+  document.querySelector(".add-inst-window").classList.remove("hidden");
+  document.querySelector("html").classList.add("no-overflow");
+});
+document.querySelector(".inst-overlay").addEventListener("click", () => {
+  document.querySelector(".add-inst-window").classList.add("hidden");
+  document.querySelector("html").classList.remove("no-overflow");
+});
+window.addEventListener("keydown", (evt) => {
+  if (evt.key == "Escape" && showingInstOverlay) {
+    document.querySelector(".add-inst-window").classList.add("hidden");
+    document.querySelector("html").classList.remove("no-overflow");
+  }
+});
+
+document.getElementById("add-dep").addEventListener("click", () => {
+  if (document.getElementById("dep-input").value == "") {
+    console.log("err");
+    return;
+  }
+
+  fetch("/teyake/public/add-dep-course.php", {
+    method: "post",
+    body: JSON.stringify({
+      addDep: true,
+      dep: document.getElementById("dep-input").value,
+    }),
+  })
+    // .then((r) => r.json())
+    .then((response) => {
+      if (response) {
+        window.open("./my_profile.php", "_parent");
+      }
+    });
+});
+document.getElementById("add-course").addEventListener("click", () => {
+  if (document.getElementById("course-input").value == "") {
+    console.log("err");
+    return;
+  }
+
+  fetch("/teyake/public/add-dep-course.php", {
+    method: "post",
+    body: JSON.stringify({
+      addCourse: true,
+      course: document.getElementById("course-input").value,
+    }),
+  })
+    // .then((r) => r.json())
+    .then((response) => {
+      if (response) {
+        window.open("./my_profile.php", "_parent");
+      }
+    });
+});
+document.getElementById("add-inst").addEventListener("click", () => {
+  if (document.getElementById("institution-input").value == "") {
+    console.log("err");
+    return;
+  }
+
+  fetch("/teyake/public/add-dep-course.php", {
+    method: "post",
+    body: JSON.stringify({
+      addInst: true,
+      institution: document.getElementById("institution-input").value,
+    }),
+  })
+    // .then((r) => r.json())
+    .then((response) => {
+      if (response) {
+        window.open("./my_profile.php", "_parent");
+      }
+    });
 });

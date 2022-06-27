@@ -99,12 +99,12 @@ exports.register = async (req, res, next) => {
       }
 
       //const hashPass = await bcrypt.hash(body._password, 12);
-      const hashPass = await encrypt.encryptPassword(body.password);
+      const hashPass = await encrypt.encryptPassword(body.pass);
       var query3 =
-        "INSERT INTO `users`(`fname`,`lname`,`gender`,`email`,`password`) VALUES(?,?,?,?,?)";
+        "INSERT INTO `examiner` (`FullName`, `Email`, `Password`, `Sex`, `PhoneNo`) VALUE	(?,?,?,?,?);";
       dbConn.query(
         query3,
-        [body.fname, body.lname, body.gender, body.email, hashPass],
+        [body.fullname, body.email, hashPass, body.gender, body.phoneNo],
         (error, rows) => {
           if (error) {
             console.log(error);

@@ -1,5 +1,5 @@
 ("use strict");
-import { Exam } from "../../shared/core.js";
+import { Exam } from "./core.js";
 
 const dashboardHome = document.querySelector(".dashboard-home");
 const examListPage = document.querySelector(".exam-list");

@@ -1,4 +1,4 @@
-import { Student, Teacher, Exam } from "../../shared/core.js";
+import { Student, Teacher, Exam } from "./core.js";
 
 const inputKey = document.querySelector("#exam-key");
 const enterBtn = document.querySelector("#enter-exam");

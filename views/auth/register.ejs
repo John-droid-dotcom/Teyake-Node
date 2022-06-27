@@ -17,14 +17,14 @@
                 <img src="../../media/images/teyake_white_fill.png" class="logo" />
                 <nav>
                     <ul class="primary-nav flex">
-                        <li class=""><a href="../index.php">Home</a></li>
-                        <li class="nav-active"><a href="signup.php">Sign Up</a></li>
+                        <li class=""><a href="../">Home</a></li>
+                        <li class="nav-active"><a href="./signup">Sign Up</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-right flex items-center">
                 <div class="sign-in flex gap-4">
-                    <a href="signin.php"><button type="button">Sign In</button></a>
+                    <a href="./login"><button type="button">Sign In</button></a>
                     <!-- <button type="button">Sign Up</button> -->
                 </div>
                 <!-- Exam Key input Section -->
@@ -56,7 +56,7 @@
                         </div>
                     </div>
 
-                    <form method="post" enctype="multipart/form-data" id="form2">
+                    <form method="post" id="form2">
                         <div class="first-form forms">
                             <div class="form-container">
                                 <div>
@@ -134,8 +134,16 @@
                     </div>
                 </div>
                 </form>
+				<%
+				if(typeof error !== 'undefined' && error != "")
+				{ 
+				%>
 
-                <p id="errorMsg"></p>
+							<p id="errorMsg"><%= error %></p>
+								
+				<% 
+				} 
+				%>
                 <div>
                     <button class="btn-signup" id="pre-signup" disabled>
                         Previous

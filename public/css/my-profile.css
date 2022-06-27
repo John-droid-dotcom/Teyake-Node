@@ -28,13 +28,12 @@
   color: black;
   font-weight: normal;
   font-size: small;
-  padding: 1px 45px;
+  padding: 1px 25px;
   border-radius: 15px;
   margin-top: 5px;
   border: 1px solid black;
   background-color: white;
   outline: none;
-  width: 40%;
 }
 
 .btn:hover {
@@ -61,18 +60,21 @@
   padding: 2rem 0;
   display: flex;
   flex-direction: column;
-  height: 14rem;
 }
 
 .password-container input {
   max-width: 15rem;
 }
 
-#institution {
-  margin-bottom: 1rem;
+#institution,
+#department,
+#course {
+  margin-block: 1rem;
+  min-width: 30%;
 }
 
-#save-edit-btn {
+#save-edit-btn,
+#back-btn {
   align-self: center;
 }
 
@@ -93,28 +95,74 @@
 }
 
 .profile-pic {
-  padding: 2rem 0;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  height: 14rem;
+  align-items: center;
 }
-
-.profile-pic-label > input {
-  display: none;
-}
-
-.profile-pic > label {
-  cursor: pointer;
-}
-
 .profile-pic-label {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.5rem;
+}
+.btns-container {
+  display: flex;
+  gap: 1rem;
   justify-content: center;
 }
+label {
+  min-width: 100%;
+}
 
-#profileDisplay {
-  margin-bottom: 0.5rem;
-  border-radius: 50%;
+.no-overflow {
+  overflow: hidden;
+}
+
+.dep-overlay,
+.course-overlay,
+.inst-overlay {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+.in-progress-modal {
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  z-index: 100;
+  padding: 2rem;
+}
+
+.in-progress-modal h3 {
+  margin-bottom: 1rem;
+}
+.in-progress-modal form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.in-progress-modal form * {
+  width: 90%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid rgb(66, 66, 66);
+  -webkit-text-fill-color: rgb(0, 0, 0);
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.74) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
