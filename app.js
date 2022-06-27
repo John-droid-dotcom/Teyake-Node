@@ -58,6 +58,7 @@ app.set("port", process.env.PORT || 5000);
  */
 app.use(require("./routes/authenticate-user"));
 app.use(require("./routes/courses"));
+app.use(require("./routes/teacher"));
 
 app.use((err, req, res, next) => {
   //console.log(err);

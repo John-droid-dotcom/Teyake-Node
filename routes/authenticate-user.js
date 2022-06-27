@@ -18,8 +18,6 @@ const {
 const { isLoggedin, isNotLoggedin } = require("../lib/check_authentication");
 const validator = require("../lib/validation_rules");
 
-const { isLoggedin, isNotLoggedin } = require("../lib/check_authentication");
-const validator = require("../lib/validation_rules");
 
 router.get("/", homePage);
 router.post("/", homePage);
@@ -42,7 +40,7 @@ router.get("/logout", (req, res, next) => {
   req.session.destroy((err) => {
     next(err);
   });
-  res.redirect("/auth/login");
+  res.redirect("/");
 });
 
 router.get("/auth/passReset_Request", isNotLoggedin, forgotPassword);

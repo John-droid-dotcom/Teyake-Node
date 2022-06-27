@@ -106,6 +106,7 @@ svg {
 }
 .primary-nav > * {
   padding: 0.5rem;
+  color: #fff;
 }
 .primary-nav li:hover {
   border-bottom: 2px solid #fff;
@@ -197,7 +198,6 @@ main {
   justify-content: center;
   min-height: 100vh;
   margin: 0;
-  border: solid black 1px;
 }
 
 .signup-header {
@@ -295,10 +295,6 @@ li {
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
-}
-
-a {
-  color: black;
 }
 
 #errorMsg {
