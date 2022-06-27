@@ -18,9 +18,6 @@ const {
 const { isLoggedin, isNotLoggedin } = require("../lib/check_authentication");
 const validator = require("../lib/validation_rules");
 
-const { isLoggedin, isNotLoggedin } = require("../lib/check_authentication");
-const validator = require("../lib/validation_rules");
-
 router.get("/", homePage);
 router.post("/", homePage);
 
