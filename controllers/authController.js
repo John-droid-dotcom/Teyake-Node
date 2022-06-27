@@ -14,47 +14,7 @@ exports.homePage = (req, res, next) => {
 
 // Dasbboard Page
 exports.dashboard = (req, res, next) => {
-  // var query1;
-  // if (req.method == 'GET')
-  // {
-  // 	if (req.session.level == 1)
-  // 		query1 = 'SELECT * FROM `courses`';
-  // 	else
-  // 		query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ` +
-  // 					`ON CO.user_id = US.id WHERE US.id = "${req.session.userID}"`;
-  // }
-
-  // else if (req.method == 'POST')
-  // {
-  // 	const { body } = req;
-  // 	//fulltext search
-  // 	if (req.session.level == 1){
-  // 		query1 = `SELECT * FROM courses WHERE MATCH (code, title, description)` +
-  // 						` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;
-  // 	}
-  // 	else{
-  // 		query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ON CO.user_id = US.id` +
-  // 						 ` WHERE US.id = "${req.session.userID}"` +
-  // 						 ` AND MATCH (code, title, description)` +
-  // 						` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;
-  // 	}
-
-  // 	//Alternative: search multiple columns with "concat & like" operators
-  // 	/*
-  // 	* `SELECT * FROM courses WHERE concat (code, title, description)` +
-  // 	*		` like "%${body.search_Key}%"`;
-  // 	*/
-  // }
-  // dbConn.query(query1, async (error, result)=>{
-
-  // 	if(error)
-  // 	{
-  // 		console.log (error);
-  // 		throw error;
-  // 	}
-  // res.render('home', {data : result, title:'Dashboard'});
   res.render("dashboard");
-  // });
 };
 
 // Register Page
@@ -64,9 +24,7 @@ exports.registerPage = (req, res, next) => {
 
 // User Registration
 exports.register = async (req, res, next) => {
-  console.log(req.body);
   const errors = validationResult(req);
-  console.log(errors);
   const { body } = req;
 
   if (!errors.isEmpty()) {
@@ -74,9 +32,8 @@ exports.register = async (req, res, next) => {
   }
 
   try {
-    var query2 = "SELECT * FROM `examiner` WHERE `email`=?";
+    var query2 = "SELECT * FROM `users` WHERE `email`=?";
     dbConn.query(query2, [body.email], async (error, row) => {
-      console.log(row);
       if (error) {
         console.log(error);
         throw error;
@@ -133,7 +90,7 @@ exports.login = (req, res, next) => {
   }
 
   try {
-    var query4 = "SELECT * FROM `users` WHERE `email`=?";
+    var query4 = "SELECT * FROM `examinee` WHERE `email`=?";
     dbConn.query(query4, [body.email], async function (error, row) {
       if (error) throw error;
       else {
