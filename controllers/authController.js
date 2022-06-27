@@ -8,48 +8,55 @@ const sendMail = require('../lib/sendEmail');
 
 const dbConn = require("../config/db_Connection")
 
-// Home Page
-exports.homePage = (req, res, next) => {
-	var query1;
-	if (req.method == 'GET')
-	{
-		if (req.session.level == 1)
-			query1 = 'SELECT * FROM `courses`';
-		else 
-			query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ` + 
-						`ON CO.user_id = US.id WHERE US.id = "${req.session.userID}"`;
-	}
+//Home Page
+exports.homePage = (req, res, next) =>{
+	res.render("public/index");
+}
 
-	else if (req.method == 'POST')
-	{
-		const { body } = req;
-		//fulltext search 
-		if (req.session.level == 1){
-			query1 = `SELECT * FROM courses WHERE MATCH (code, title, description)` +
-							` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;
-		}
-		else{
-			query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ON CO.user_id = US.id` + 
-							 ` WHERE US.id = "${req.session.userID}"` +
-							 ` AND MATCH (code, title, description)` +
-							` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;			
-		}
+
+// Dasbboard Page
+exports.dashboard = (req, res, next) => {
+	// var query1;
+	// if (req.method == 'GET')
+	// {
+	// 	if (req.session.level == 1)
+	// 		query1 = 'SELECT * FROM `courses`';
+	// 	else 
+	// 		query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ` + 
+	// 					`ON CO.user_id = US.id WHERE US.id = "${req.session.userID}"`;
+	// }
+
+	// else if (req.method == 'POST')
+	// {
+	// 	const { body } = req;
+	// 	//fulltext search 
+	// 	if (req.session.level == 1){
+	// 		query1 = `SELECT * FROM courses WHERE MATCH (code, title, description)` +
+	// 						` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;
+	// 	}
+	// 	else{
+	// 		query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ON CO.user_id = US.id` + 
+	// 						 ` WHERE US.id = "${req.session.userID}"` +
+	// 						 ` AND MATCH (code, title, description)` +
+	// 						` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;			
+	// 	}
 		
-		//Alternative: search multiple columns with "concat & like" operators 
-		/*
-		* `SELECT * FROM courses WHERE concat (code, title, description)` +
-		*		` like "%${body.search_Key}%"`;		
-		*/
-	}
-    dbConn.query(query1, async (error, result)=>{
+	// 	//Alternative: search multiple columns with "concat & like" operators 
+	// 	/*
+	// 	* `SELECT * FROM courses WHERE concat (code, title, description)` +
+	// 	*		` like "%${body.search_Key}%"`;		
+	// 	*/
+	// }
+    // dbConn.query(query1, async (error, result)=>{
 		
-		if(error)
-		{
-			console.log (error);
-			throw error;
-		}
-	res.render('home', {data : result, title:'Homepage'});
-	});
+	// 	if(error)
+	// 	{
+	// 		console.log (error);
+	// 		throw error;
+	// 	}
+	// res.render('home', {data : result, title:'Dashboard'});
+	res.render('dashboard');
+	// });
 }
 
 // Register Page
@@ -141,7 +148,7 @@ exports.login = (req, res, next) => {
 					req.session.userID = row[0].id;
 					req.session.email = row[0].email;
 					req.session.level = row[0].level;
-					return res.redirect('/');
+					return res.redirect('/dashboard');
 				}
 
 				res.render('auth/login', {error: 'Invalid email address or password.'});

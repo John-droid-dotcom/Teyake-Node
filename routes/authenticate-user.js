@@ -3,6 +3,7 @@ const { body } = require("express-validator");
 
 /* pages route */
 const {
+  dashboard,
   homePage,
   register,
   registerPage,
@@ -17,8 +18,14 @@ const {
 const { isLoggedin, isNotLoggedin } = require("../lib/check_authentication");
 const validator = require("../lib/validation_rules");
 
-router.get("/", isLoggedin, homePage);
-router.post("/", isLoggedin, homePage);
+const { isLoggedin, isNotLoggedin } = require("../lib/check_authentication");
+const validator = require("../lib/validation_rules");
+
+router.get("/", homePage);
+router.post("/", homePage);
+
+router.get("/dashboard", isLoggedin, dashboard);
+router.post("/dashboard", isLoggedin, dashboard);
 
 router.get("/auth/login", isNotLoggedin, loginPage);
 router.post("/auth/login", isNotLoggedin, validator.validationRules[0], login);
