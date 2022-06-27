@@ -7,6 +7,9 @@ const {
   homePage,
   register,
   registerPage,
+  adminLog,
+  adminLogin,
+  adminPage,
   login,
   loginPage,
   forgotPassword,
@@ -23,6 +26,16 @@ router.post("/", homePage);
 
 router.get("/dashboard", isLoggedin, dashboard);
 router.post("/dashboard", isLoggedin, dashboard);
+
+router.get("/admin/admin-login", isNotLoggedin, adminLog);
+router.post(
+  "/admin/admin-login",
+  isNotLoggedin,
+  validator.validationRules[0],
+  adminLogin
+);
+
+router.get("/admin/admin-page", isLoggedin, adminPage);
 
 router.get("/auth/login", isNotLoggedin, loginPage);
 router.post("/auth/login", isNotLoggedin, validator.validationRules[0], login);
