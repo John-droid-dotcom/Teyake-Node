@@ -16,46 +16,47 @@ exports.homePage = (req, res, next) =>{
 
 // Dasbboard Page
 exports.dashboard = (req, res, next) => {
-	var query1;
-	if (req.method == 'GET')
-	{
-		if (req.session.level == 1)
-			query1 = 'SELECT * FROM `courses`';
-		else 
-			query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ` + 
-						`ON CO.user_id = US.id WHERE US.id = "${req.session.userID}"`;
-	}
+	// var query1;
+	// if (req.method == 'GET')
+	// {
+	// 	if (req.session.level == 1)
+	// 		query1 = 'SELECT * FROM `courses`';
+	// 	else 
+	// 		query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ` + 
+	// 					`ON CO.user_id = US.id WHERE US.id = "${req.session.userID}"`;
+	// }
 
-	else if (req.method == 'POST')
-	{
-		const { body } = req;
-		//fulltext search 
-		if (req.session.level == 1){
-			query1 = `SELECT * FROM courses WHERE MATCH (code, title, description)` +
-							` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;
-		}
-		else{
-			query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ON CO.user_id = US.id` + 
-							 ` WHERE US.id = "${req.session.userID}"` +
-							 ` AND MATCH (code, title, description)` +
-							` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;			
-		}
+	// else if (req.method == 'POST')
+	// {
+	// 	const { body } = req;
+	// 	//fulltext search 
+	// 	if (req.session.level == 1){
+	// 		query1 = `SELECT * FROM courses WHERE MATCH (code, title, description)` +
+	// 						` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;
+	// 	}
+	// 	else{
+	// 		query1 = `SELECT * FROM courses as CO LEFT JOIN users as US ON CO.user_id = US.id` + 
+	// 						 ` WHERE US.id = "${req.session.userID}"` +
+	// 						 ` AND MATCH (code, title, description)` +
+	// 						` AGAINST ("${body.search_Key}" IN NATURAL LANGUAGE MODE)`;			
+	// 	}
 		
-		//Alternative: search multiple columns with "concat & like" operators 
-		/*
-		* `SELECT * FROM courses WHERE concat (code, title, description)` +
-		*		` like "%${body.search_Key}%"`;		
-		*/
-	}
-    dbConn.query(query1, async (error, result)=>{
+	// 	//Alternative: search multiple columns with "concat & like" operators 
+	// 	/*
+	// 	* `SELECT * FROM courses WHERE concat (code, title, description)` +
+	// 	*		` like "%${body.search_Key}%"`;		
+	// 	*/
+	// }
+    // dbConn.query(query1, async (error, result)=>{
 		
-		if(error)
-		{
-			console.log (error);
-			throw error;
-		}
-	res.render('home', {data : result, title:'Dashboard'});
-	});
+	// 	if(error)
+	// 	{
+	// 		console.log (error);
+	// 		throw error;
+	// 	}
+	// res.render('home', {data : result, title:'Dashboard'});
+	res.render('dashboard');
+	// });
 }
 
 // Register Page
