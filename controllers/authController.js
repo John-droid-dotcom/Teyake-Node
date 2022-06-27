@@ -17,6 +17,59 @@ exports.dashboard = (req, res, next) => {
   res.render("dashboard");
 };
 
+//Admin Login Page
+exports.adminLog = (req, res, next) => {
+  res.render("admin/admin-login");
+};
+
+//Admin Page
+exports.adminPage = (req, res, next) => {
+  res.render("admin/admin");
+};
+
+//Admin Login
+exports.adminLogin = (req, res, next) => {
+  const errors = validationResult(req);
+  const { body } = req;
+
+  if (!errors.isEmpty()) {
+    return res.render("admin/admin-login", { error: errors.array()[0].msg });
+  }
+
+  try {
+    var query4 = "SELECT * FROM `admin` WHERE `email`=?";
+    dbConn.query(query4, [body.email], async function (error, row) {
+      if (error) throw error;
+      else {
+        if (row.length != 1) {
+          return res.render("admin/admin-login", {
+            error: "Invalid email address or pasassword.",
+          });
+        }
+
+        //const checkPass = await bcrypt.compare(body.password, row[0].password);
+        const checkPass = await encrypt.matchPassword(
+          body.password,
+          row[0].password
+        );
+
+        if (checkPass === true) {
+          req.session.userID = row[0].id;
+          req.session.email = row[0].email;
+          //   req.session.level = row[0].level;
+          return res.redirect("admin-page");
+        }
+
+        res.render("auth/login", {
+          error: "Invalid email address or pashelessword.",
+        });
+      }
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
 // Register Page
 exports.registerPage = (req, res, next) => {
   res.render("auth/register");
@@ -90,31 +143,31 @@ exports.login = (req, res, next) => {
   }
 
   try {
-    var query4 = "SELECT * FROM `examinee` WHERE `email`=?";
+    var query4 = "SELECT * FROM `examiner` WHERE `Email`=?";
     dbConn.query(query4, [body.email], async function (error, row) {
       if (error) throw error;
       else {
         if (row.length != 1) {
           return res.render("auth/login", {
-            error: "Invalid email address or password.",
+            error: "Invalid email address or pasassword.",
           });
         }
 
         //const checkPass = await bcrypt.compare(body.password, row[0].password);
         const checkPass = await encrypt.matchPassword(
           body.password,
-          row[0].password
+          row[0].Password
         );
 
         if (checkPass === true) {
-          req.session.userID = row[0].id;
-          req.session.email = row[0].email;
-          req.session.level = row[0].level;
+          req.session.userID = row[0].ID;
+          req.session.email = row[0].Email;
+          //   req.session.level = row[0].level;
           return res.redirect("/dashboard");
         }
 
         res.render("auth/login", {
-          error: "Invalid email address or password.",
+          error: "Invalid email address or pashelessword.",
         });
       }
     });
