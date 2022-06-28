@@ -57,7 +57,7 @@ next.addEventListener("click", (event) => {
       return;
     }
 
-    erorrLabel.innerText = "";
+    // erorrLabel.innerText = "";
 
     currentActive++;
     if (currentActive > circles.length) {

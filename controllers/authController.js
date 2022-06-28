@@ -85,7 +85,7 @@ exports.register = async (req, res, next) => {
   }
 
   try {
-    var query2 = "SELECT * FROM `users` WHERE `email`=?";
+    var query2 = "SELECT * FROM `examiner` WHERE `email`=?";
     dbConn.query(query2, [body.email], async (error, row) => {
       if (error) {
         console.log(error);
