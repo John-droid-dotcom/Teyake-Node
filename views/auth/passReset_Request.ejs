@@ -1,54 +1,46 @@
-<%- include('../partials/header',{title:'Password Rest'}); -%>
-   
-<div class="container p-4">
-    <div class="row">
-        <div class="col-md-7 mx-auto">
-            <div class="card text-center">
-                <div class="card-header bg-primary">
-                    <h3>Forgot Password </h3>
-                </div>
-			 
-					<form action="" method="POST" name="sendLink">     				
-						<div class="row">
-							<div class="col-10 mb-3 float-center" style = "padding-left:40px">		
-								<label for="user_femail" class="float-left">Email Address</label>
-								<input type="email" class="form-control" 
-									name="email" id="user_femail" 
-									autocomplete="off" placeholder="Enter your email">
-							</div>
-						</div>
-						<% 
-						if(typeof msg !== 'undefined' && msg != "")
-						{ 
-						%>
-							<div class="col-12">
-								<div class="success-msg">
-									<%= msg %>									
-									<a href="./login" style = "font-weight: bold">Login</a>							
-								</div>									
-							</div>
-						<% 
-						}								
-						if(typeof error !== 'undefined' && error != "")
-						{ 
-						%>
-							<div class="col-12">
-								<div class="err-msg">
-									<%= error %>
-								</div>									
-							</div>
-						<% 
-						} 
-						%>
-						
-						<div class="col-3 form-btns">
-							<input type="submit" value="Send link">
-						</div>	
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgot Password | Teyake</title>
+    <link rel="stylesheet" href="../../css/style-reset.css" />
+    <link rel="stylesheet" href="../../css/signin.css" />
+    <style>
+      .login-container {
+        overflow: hidden;
+        padding: 2rem;
+      }
+    </style>
+  </head>
 
-<%- include('../partials/footer'); -%>
+  <body>
+    <div class="container text-white">
+      <main class="sign-in-page flex items-center justify-center">
+        <div class="login-container flex flex-col items-center justify-center">
+          <form action="" method="POST" name="sendLink">
+            <label for="email">Email</label>
+            <input type="email" name="email" />
+			<button type="submit">Submit</button>
+            <% if(typeof msg !== 'undefined' && msg != "") { %>
+            
+              <div id="successMsg">
+                <%= msg %>
+                <a href="./login" style="font-weight: bold">Login</a>
+              </div>
+            </div>
+            <% } if(typeof error !== 'undefined' && error != "") { %>
+            
+              <div id="errorMsg"> <%= error %> </div>
+            
+            <% } %>
+
+            
+          </form>
+        </div>
+      </main>
+    </div>
+  </body>
+  <!-- <script src="signin.js" type="module"></script> -->
+</html>

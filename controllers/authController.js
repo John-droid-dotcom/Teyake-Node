@@ -186,7 +186,7 @@ exports.sendResetPassLink = (req, res, next) => {
   const { body } = req;
   const email = body.email;
 
-  var query2 = 'SELECT * FROM users WHERE email ="' + email + '"';
+  var query2 = 'SELECT * FROM examiner WHERE email ="' + email + '"';
   dbConn.query(query2, function (err, result) {
     if (err) throw err;
 
@@ -196,7 +196,7 @@ exports.sendResetPassLink = (req, res, next) => {
 
       if (sent != "0") {
         var data = { token: token };
-        var query3 = 'UPDATE users SET ? WHERE email ="' + email + '"';
+        var query3 = 'UPDATE examiner SET ? WHERE email ="' + email + '"';
         dbConn.query(query3, data, function (err, result) {
           if (err) throw err;
         });

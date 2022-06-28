@@ -277,3 +277,9 @@ h1 {
   justify-content: center;
   display: flex;
 }
+
+#successMsg {
+  color: green;
+  justify-content: center;
+  display: flex;
+}
