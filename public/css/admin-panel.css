@@ -381,6 +381,7 @@ select {
   display: flex;
   justify-content: center;
   margin-block: 2rem;
+  gap: 1.7rem;
 }
 #add-btn {
   border: 2px solid var(--primary-color);

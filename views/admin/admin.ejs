@@ -118,9 +118,43 @@
                 </table>
                 <!-- <form action="" method="POST"> -->
                 <div class="btn-container">
-                    <a href="Examiners_List.xlsx" class="bg-primary text-white transition report-btn">Generate
-                        Report</a>
+                    <a href="/pages/exportCSV" class="bg-primary text-white transition report-btn">Export
+                        Record</a>
+                        <form action="" method="POST" enctype="multipart/form-data" >	
+                            
+								<input type="file" class="input"  
+										name="csvFile" id="csvFile">
+
+<% 
+							if(typeof msg != 'undefined' && msg != "")
+							{ 
+							%>
+								<div class="col-12">
+									<div class="success-msg">
+										<%= msg %>
+									</div>									
+								</div>
+							<% 
+							}
+									
+							if(typeof error !== 'undefined' && error != "")
+							{ 
+							%>
+								<div class="col-12">
+									<div class="err-msg">
+										<%= error %>
+									</div>									
+								</div>
+							<% 
+							} 
+							%>
+							
+						
+                            <input type="submit" class="bg-primary text-white transition report-btn" value="Import Record">
+                                        </form>
+
                 </div>
+                
                 <!-- </form> -->
             </div>
         </div>
@@ -168,9 +202,41 @@
                 </table>
                 <!-- <form action="" method="POST"> -->
                 <div class="btn-container">
-                    <a href="Examinees_List.xlsx" class="bg-primary text-white transition report-btn">Generate
-                        Report</a>
+                    <a href="/pages/exportCSVExaminee" class="bg-primary text-white transition report-btn">Export
+                        Record</a>
+                        <form action="" method="POST" enctype="multipart/form-data" >	
+                            
+								<input type="file" class="input"  
+										name="csvFileExaminee" id="csvFile"><% 
+							if(typeof msg != 'undefined' && msg != "")
+							{ 
+							%>
+								<div class="col-12">
+									<div class="success-msg">
+										<%= msg %>
+									</div>									
+								</div>
+							<% 
+							}
+									
+							if(typeof error !== 'undefined' && error != "")
+							{ 
+							%>
+								<div class="col-12">
+									<div class="err-msg">
+										<%= error %>
+									</div>									
+								</div>
+							<% 
+							} 
+							%>
+							
+						
+							<input type="submit" class="bg-primary text-white transition report-btn" value="Import Record">
+						
+                                        </form>
                 </div>
+                
                 <!-- </form> -->
             </div>
         </div>
@@ -218,8 +284,41 @@
                 <!-- <form action="" method="POST"> -->
                 <div class="btn-container">
 
-                    <a href="Exams_List.xlsx" class="bg-primary text-white transition report-btn">Generate Report</a>
+                    <a href="/pages/exportCSVExam" class="bg-primary text-white transition report-btn">Export Record</a>
+                    <form action="" method="POST" enctype="multipart/form-data" >	
+                            
+								<input type="file" class="input"  
+										name="csvFileExam" id="csvFile"><% 
+							if(typeof msg != 'undefined' && msg != "")
+							{ 
+							%>
+								<div class="col-12">
+									<div class="success-msg">
+										<%= msg %>
+									</div>									
+								</div>
+							<% 
+							}
+									
+							if(typeof error !== 'undefined' && error != "")
+							{ 
+							%>
+								<div class="col-12">
+									<div class="err-msg">
+										<%= error %>
+									</div>									
+								</div>
+							<% 
+							} 
+							%>
+							
+						
+                            <input type="submit" class="bg-primary text-white transition report-btn" value="Import Record">
+
+						
+                                        </form>
                 </div>
+             
                 <!-- </form> -->
             </div>
         </div>
