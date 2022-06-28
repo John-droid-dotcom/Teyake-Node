@@ -24,7 +24,23 @@ exports.adminLog = (req, res, next) => {
 
 //Admin Page
 exports.adminPage = (req, res, next) => {
-  res.render("admin/admin");
+  var query1, query2, query3;
+
+  if (req.method == "GET") {
+    query1 =
+      "SELECT * FROM `examiner`; SELECT * FROM `examinee`; SELECT * FROM `exam`";
+  }
+  dbConn.query(query1, [1, 2, 3], async (error, result) => {
+    if (error) {
+      console.log(error);
+      throw error;
+    }
+    res.render("admin/admin", {
+      dataExaminer: result[0],
+      dataExaminee: result[1],
+      dataExam: result[2],
+    });
+  });
 };
 
 //Admin Login

@@ -89,11 +89,32 @@
                         <th>Full Name</th>
                         <th>E-mail</th>
                         <th>Sex</th>
-                        <th>Department</th>
-                        <th>Institution</th>
+                        <!-- <th>Department</th>
+                        <th>Institution</th> -->
                         <th>Phone Number</th>
                     </tr>
-                   
+                    <% 
+                    if(dataExaminer.length > 0){
+                        dataExaminer.forEach(function(dataExaminer){
+                    %>
+                     <tr>
+                        <td><%= dataExaminer.ID %></td>
+                        <td><%= dataExaminer.FullName %></td>
+                        <td><%= dataExaminer.Email %></td>
+                        <td><%= dataExaminer.Sex %></td>
+                        <td><%= dataExaminer.PhoneNo %></td>
+                        </tr>
+                       
+                        
+                    <%
+                      });
+                    }
+                    else{
+                    %>
+                   <tr>
+                    <td colspan="6">No Data Found</td>
+                    </tr>
+                    <% } %>
                 </table>
                 <!-- <form action="" method="POST"> -->
                 <div class="btn-container">
@@ -114,12 +135,36 @@
                         <th>E-mail</th>
                         <th>Sex</th>
                         <th>Section</th>
-                        <th>Department</th>
+                        
                         <th>Score</th>
-                        <th>Institution</th>
+                        
 
                     </tr>
-                   
+                </tr>
+                    <% 
+                    if(dataExaminee.length > 0){
+                        dataExaminee.forEach(function(dataExaminee){
+                    %>
+                     <tr>
+                        <td><%= dataExaminee.ID %></td>
+                        <td><%= dataExaminee.FullName %></td>
+                        <td><%= dataExaminee.Email %></td>
+                        <td><%= dataExaminee.Sex %></td>
+                        <td><%= dataExaminee.Section %></td>
+                        <td><%= dataExaminee.Sex %></td>
+                        <td><%= dataExaminee.PhoneNo %></td>
+                        </tr>
+                       
+                        
+                    <%
+                      });
+                    }
+                    else{
+                    %>
+                   <tr>
+                    <td colspan="6">No Data Found</td>
+                    </tr>
+                    <% } %>
                 </table>
                 <!-- <form action="" method="POST"> -->
                 <div class="btn-container">
@@ -138,14 +183,36 @@
                     <tr>
 
                         <th>Exam Name</th>
-                        <th>Course Name</th>
-                        <th>Examiner</th>
+                        
                         <th>Status</th>
                         <th>Duration</th>
                         <th>Date</th>
 
                     </tr>
 
+                </tr>
+                    <% 
+                    if(dataExam.length > 0){
+                        dataExam.forEach(function(dataExam){
+                    %>
+                     <tr>
+                        <td><%= dataExam.Name %></td>
+                        <td><%= dataExam.Status %></td>
+                        <td><%= dataExam.Duration %></td>
+                        <td><%= dataExam.Date %></td>
+                        
+                        </tr>
+                       
+                        
+                    <%
+                      });
+                    }
+                    else{
+                    %>
+                   <tr>
+                    <td colspan="6">No Data Found</td>
+                    </tr>
+                    <% } %>
                   
                 </table>
                 <!-- <form action="" method="POST"> -->
